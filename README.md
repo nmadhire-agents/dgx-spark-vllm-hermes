@@ -13,7 +13,7 @@ Model card:
 https://huggingface.co/nvidia/Qwen3.6-35B-A3B-NVFP4
 ```
 
-The flow is:
+The Hermes flow is:
 
 1. Run vLLM in Docker with the Hugging Face model.
 2. Expose vLLM's OpenAI-compatible API on `http://127.0.0.1:8000/v1`.
@@ -157,3 +157,26 @@ Restrict the bot to your Telegram user ID when prompted.
 - The Hermes base URL is `http://127.0.0.1:${VLLM_PORT}/v1`.
 - The model card lists vLLM as the supported runtime for this NVFP4 checkpoint.
 - The first vLLM start downloads model weights and can take a while.
+
+## OpenCode Setup
+
+OpenCode can use the same local vLLM OpenAI-compatible endpoint. The helper script writes an `opencode.json` project config using the documented `@ai-sdk/openai-compatible` provider shape.
+
+```bash
+./scripts/setup-opencode-vllm.sh configure-opencode
+opencode
+```
+
+To start vLLM through the existing Hermes/vLLM script, wait for readiness, and write the OpenCode config in one step:
+
+```bash
+./scripts/setup-opencode-vllm.sh install-all
+```
+
+The default OpenCode model ref is:
+
+```text
+vllm/nvidia/Qwen3.6-35B-A3B-NVFP4
+```
+
+If `opencode.json` already exists, the script will not overwrite it unless you set `OPENCODE_OVERWRITE_CONFIG=1` or choose another path with `OPENCODE_CONFIG_PATH`.
