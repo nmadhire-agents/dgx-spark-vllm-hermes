@@ -14,6 +14,22 @@ The flow is:
 3. Install Hermes Agent if needed.
 4. Configure Hermes to use the local custom endpoint.
 
+## Architecture
+
+```mermaid
+flowchart LR
+    User[User] --> Hermes[Hermes Agent]
+    Hermes --> API[OpenAI-compatible API<br/>http://127.0.0.1:8000/v1]
+    API --> VLLM[vLLM Docker container]
+    VLLM --> Model[nvidia/Qwen3.6-35B-A3B-NVFP4]
+    VLLM --> GPU[NVIDIA GPU]
+```
+
+- Hermes is the chat agent you interact with from the CLI or gateway.
+- vLLM runs locally in Docker and serves the model through an OpenAI-compatible API.
+- Hermes points at that local API instead of a remote model provider or Ollama.
+- The model weights come from Hugging Face and inference runs on the local NVIDIA GPU.
+
 ## Prerequisites
 
 - DGX Spark or another NVIDIA Blackwell/Hopper Linux host.
