@@ -7,6 +7,12 @@ Ollama. The target model is:
 nvidia/Qwen3.6-35B-A3B-NVFP4
 ```
 
+Model card:
+
+```text
+https://huggingface.co/nvidia/Qwen3.6-35B-A3B-NVFP4
+```
+
 The flow is:
 
 1. Run vLLM in Docker with the Hugging Face model.
@@ -119,6 +125,10 @@ export VLLM_GPU_MEMORY_UTILIZATION="0.85"
 export VLLM_MAX_NUM_SEQS="4"
 export VLLM_MAX_NUM_BATCHED_TOKENS="8192"
 ```
+
+`HF_MODEL_HANDLE` is the Hugging Face model ID passed to vLLM. The default is
+`nvidia/Qwen3.6-35B-A3B-NVFP4`; change it only if you want Hermes to use a
+different vLLM-compatible model.
 
 For DGX Spark, the script uses the environment settings recommended on the
 model card:
