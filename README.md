@@ -160,23 +160,14 @@ Restrict the bot to your Telegram user ID when prompted.
 
 ## OpenCode Setup
 
-OpenCode can use the same local vLLM OpenAI-compatible endpoint. The helper script writes an `opencode.json` project config using the documented `@ai-sdk/openai-compatible` provider shape.
-
-```bash
-./scripts/setup-opencode-vllm.sh configure-opencode
-opencode
-```
-
-To start vLLM through the existing Hermes/vLLM script, wait for readiness, and write the OpenCode config in one step:
-
-```bash
-./scripts/setup-opencode-vllm.sh install-all
-```
-
-The default OpenCode model ref is:
+OpenCode setup has moved to the DGX Spark nuggets reference repo:
 
 ```text
-vllm/nvidia/Qwen3.6-35B-A3B-NVFP4
+https://github.com/nmadhire/dgx-spark-nuggets
 ```
 
-If `opencode.json` already exists, the script will not overwrite it unless you set `OPENCODE_OVERWRITE_CONFIG=1` or choose another path with `OPENCODE_CONFIG_PATH`.
+Use `scripts/setup-opencode-vllm.sh` from that repo when configuring OpenCode against this local vLLM endpoint. To let that helper start vLLM from this checkout, set `SETUP_HERMES_VLLM_SCRIPT` to this repo path:
+
+```bash
+SETUP_HERMES_VLLM_SCRIPT=/path/to/dgx-spark-vllm-hermes/scripts/setup-hermes-vllm.sh ./scripts/setup-opencode-vllm.sh install-all
+```
